@@ -29,6 +29,8 @@
 		F6F76ED52DBFF73700ECA120 /* SwipeCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6F76ED42DBFF73700ECA120 /* SwipeCardView.swift */; };
 		F6F76ED72DBFFC6000ECA120 /* DummyData.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6F76ED62DBFFC6000ECA120 /* DummyData.swift */; };
 		F6F76ED92DC0204300ECA120 /* TestView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6F76ED82DC0204300ECA120 /* TestView.swift */; };
+		F6F76F0A2E298ABB00ECA120 /* SettingsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6F76F092E298ABB00ECA120 /* SettingsViewModel.swift */; };
+		F6F76F0C2E2ACC2600ECA120 /* ImagePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6F76F0B2E2ACC2600ECA120 /* ImagePicker.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -58,6 +60,8 @@
 		F6F76ED42DBFF73700ECA120 /* SwipeCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwipeCardView.swift; sourceTree = "<group>"; };
 		F6F76ED62DBFFC6000ECA120 /* DummyData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DummyData.swift; sourceTree = "<group>"; };
 		F6F76ED82DC0204300ECA120 /* TestView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestView.swift; sourceTree = "<group>"; };
+		F6F76F092E298ABB00ECA120 /* SettingsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewModel.swift; sourceTree = "<group>"; };
+		F6F76F0B2E2ACC2600ECA120 /* ImagePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagePicker.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -144,6 +148,7 @@
 				F62AEE682CAB4A78002DF7C5 /* RegistrationView.swift */,
 				F6F76ED42DBFF73700ECA120 /* SwipeCardView.swift */,
 				F6F76ED82DC0204300ECA120 /* TestView.swift */,
+				F6F76F0B2E2ACC2600ECA120 /* ImagePicker.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -164,6 +169,7 @@
 				F62AEE5E2CA4AAB9002DF7C5 /* ProfileViewModel.swift */,
 				F62AEE602CA4AAC7002DF7C5 /* SwipeViewModel.swift */,
 				F63A234C2CACB1D800D01EC6 /* RegistrationViewModel.swift */,
+				F6F76F092E298ABB00ECA120 /* SettingsViewModel.swift */,
 			);
 			path = ViewModels;
 			sourceTree = "<group>";
@@ -291,6 +297,7 @@
 				F62AEE692CAB4A78002DF7C5 /* RegistrationView.swift in Sources */,
 				F62AEE632CA4BF0F002DF7C5 /* EditProfileView.swift in Sources */,
 				F62AEE552CA4AA3F002DF7C5 /* ProfileView.swift in Sources */,
+				F6F76F0C2E2ACC2600ECA120 /* ImagePicker.swift in Sources */,
 				F62AEE5F2CA4AAB9002DF7C5 /* ProfileViewModel.swift in Sources */,
 				F6F76ED92DC0204300ECA120 /* TestView.swift in Sources */,
 				F62AEE272CA218AB002DF7C5 /* ContentView.swift in Sources */,
@@ -301,6 +308,7 @@
 				F62AEE572CA4AA5E002DF7C5 /* SwipeView.swift in Sources */,
 				F62AEE252CA218AB002DF7C5 /* FoodDateApp.swift in Sources */,
 				F6F76ED52DBFF73700ECA120 /* SwipeCardView.swift in Sources */,
+				F6F76F0A2E298ABB00ECA120 /* SettingsViewModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

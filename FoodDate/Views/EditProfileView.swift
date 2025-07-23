@@ -4,24 +4,21 @@
 //
 //  Created by Lorenzo Hobbs on 9/25/24.
 //
-
-import Foundation
 import SwiftUI
+import Foundation
 
 struct EditProfileView: View {
     @ObservedObject var viewModel: ProfileViewModel
     @Environment(\.dismiss) var dismiss
+
+    @State private var showImagePicker = false
+    @State private var selectedImage: UIImage? = UIImage(named: "profilepicture")
+
     var body: some View {
         ScrollView {
             VStack(spacing: 20) {
                 // Profile Picture
-                Image("profilepicture")
-                    .resizable()
-                    .aspectRatio(contentMode: .fill)
-                    .frame(width: 200, height: 200)
-                    .clipShape(Circle())
-                    .overlay(Circle().stroke(Color.gray.opacity(0.4), lineWidth: 2))
-                    .shadow(radius: 5)
+                profileImageView
 
                 // Username
                 TextField("Username", text: $viewModel.name)
@@ -51,6 +48,9 @@ struct EditProfileView: View {
 
                 // Save Button
                 Button(action: {
+                    if let image = selectedImage {
+                        viewModel.profileImage = image
+                    }
                     viewModel.saveProfile()
                     dismiss()
                 }) {
@@ -66,6 +66,35 @@ struct EditProfileView: View {
         }
         .onAppear {
             viewModel.loadProfile()
+        }
+        .sheet(isPresented: $showImagePicker) {
+            ImagePicker(image: $selectedImage)
+        }
+    }
+
+    // MARK: - Profile Image View
+    private var profileImageView: some View {
+        Group {
+            if let selectedImage = self.selectedImage {
+                Image(uiImage: selectedImage)
+                    .resizable()
+
+            } else if let vmImage = self.viewModel.profileImage {
+                Image(uiImage: vmImage)
+                    .resizable()
+            } else {
+                Image("profilepicture") // fallback default image name
+                    .resizable()
+
+            }
+        }
+        .aspectRatio(contentMode: .fill)
+        .frame(width: 200, height: 200)
+        .clipShape(Circle())
+        .overlay(Circle().stroke(Color.gray.opacity(0.4), lineWidth: 2))
+        .shadow(radius: 5)
+        .onTapGesture {
+            self.showImagePicker = true
         }
     }
 }

@@ -9,6 +9,7 @@ import SwiftUI
 
 struct ChatPreview: Identifiable {
     let id = UUID()
+    let userId: String
     let name: String
     let imageName: String
     let lastMessage: String
@@ -42,11 +43,11 @@ struct ChatRow: View {
 
 struct MessagesView: View {
     let chats = [
-        ChatPreview(name: "Katie", imageName:"katie", lastMessage: "Hey, uhh come over ;)" )]
+        ChatPreview(userId: "HTSEVQg4rWPJYaMOyEdQxmfl9772", name: "Katie", imageName:"katie", lastMessage: "Hey, uhh come over ;)" )]
     var body: some View {
         NavigationView {
             List(chats) { chat in
-                NavigationLink(destination: ChatView(userName: chat.name)){
+                NavigationLink(destination: ChatView(userName: chat.name,userId: chat.userId)){
                     ChatRow(chat: chat)
                 }
             }

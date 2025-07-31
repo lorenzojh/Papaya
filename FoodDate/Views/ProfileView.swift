@@ -30,6 +30,7 @@ struct SectionView<Content: View>: View {
 // MARK: - ProfileView
 struct ProfileView: View {
     @StateObject var viewModel = ProfileViewModel()
+    @State private var showImagePicker = false
 
     var body: some View {
         ZStack {
@@ -42,12 +43,29 @@ struct ProfileView: View {
                     if viewModel.isEditing {
                         // EDIT MODE
                         VStack(alignment: .center, spacing: 20) {
-                            Image("profilepicture")
-                                .resizable()
-                                .aspectRatio(contentMode: .fill)
-                                .frame(width: 200, height: 200)
-                                .cornerRadius(100)
-                                .clipped()
+                            Group {
+                                if let image = viewModel.profileImage {
+                                    Image(uiImage: image)
+                                        .resizable()
+
+                                } else {
+                                    Image("profilepicture")
+                                        .resizable()
+
+                                }
+                            }
+                            .aspectRatio(contentMode: .fill)
+                            .frame(width: 200, height: 200)
+                            .clipShape(Circle())
+                            .overlay(Circle().stroke(Color.gray.opacity(0.4), lineWidth: 2))
+                            .shadow(radius: 5)
+                            .onTapGesture {
+                                showImagePicker = true
+                            }
+                            .sheet(isPresented: $showImagePicker) {
+                                ImagePicker(image: $viewModel.profileImage)
+                            }
+
 
                             TextField("Name", text: $viewModel.name)
                                 .padding()

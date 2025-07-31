@@ -17,6 +17,7 @@ struct SwipeView: View {
     @State private var showMatch: Bool = false
     @State private var matchedProfile: UserProfile? = nil
     @State private var swipeStatus: String? = nil
+    @EnvironmentObject var settings: SettingsViewModel
 
     var body: some View {
         ZStack {
@@ -131,6 +132,12 @@ struct SwipeView: View {
             }
         }
         .padding()
+        .onAppear(){
+            loadFilteredProfiles()
+        }
+        .onChange(of: settings.genderPreference) { _ in
+            loadFilteredProfiles()
+        }
     }
 
     private func handleSwipe(value: CGSize) {
@@ -144,6 +151,7 @@ struct SwipeView: View {
     }
 
     private func swipeRight() {
+        guard topProfileIndex < profiles.count else {return}
         let likedProfile = profiles[topProfileIndex]
         likedProfiles.append(likedProfile)
         
@@ -165,6 +173,7 @@ struct SwipeView: View {
     }
 
     private func swipeLeft() {
+        guard topProfileIndex < profiles.count else {return}
         print("Swiped left ❌")
         
         swipeStatus = "❌"
@@ -174,4 +183,25 @@ struct SwipeView: View {
             swipeStatus = nil
         }
     }
-}
+    private func loadFilteredProfiles() {
+        let allProfiles = dummyProfiles
+
+        profiles = allProfiles.filter { profile in
+            let ageInt = Int(profile.age) ?? 0
+            let matchesAge = ageInt >= settings.minAge && ageInt <= settings.maxAge
+
+            let matchesGender: Bool
+            switch settings.genderPreference {
+            case .all:
+                matchesGender = true
+            case .male:
+                matchesGender = profile.gender.lowercased() == "male"
+            case .female:
+                matchesGender = profile.gender.lowercased() == "female"
+            }
+
+            return matchesGender && matchesAge
+        }
+    }
+    }
+

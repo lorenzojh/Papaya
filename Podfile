@@ -8,6 +8,6 @@ target 'FoodDate' do
   # Pods for FoodDate
 	pod 'FirebaseAuth'
 pod 'Firebase/Database'
-
+pod 'Firebase/Firestore' 
 
 end

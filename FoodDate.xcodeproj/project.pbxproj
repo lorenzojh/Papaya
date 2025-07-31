@@ -9,7 +9,6 @@
 /* Begin PBXBuildFile section */
 		0C4D34FD5D483CD35B99E690 /* Pods_FoodDate.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2C2C3AD5AE38FA3EB0C6076B /* Pods_FoodDate.framework */; };
 		F629C2E62CACCA0D00CB214A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F629C2E52CACCA0D00CB214A /* AppDelegate.swift */; };
-		F629C2EA2CACD95F00CB214A /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = F629C2E92CACD95F00CB214A /* GoogleService-Info.plist */; };
 		F62AEE252CA218AB002DF7C5 /* FoodDateApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = F62AEE242CA218AB002DF7C5 /* FoodDateApp.swift */; };
 		F62AEE272CA218AB002DF7C5 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F62AEE262CA218AB002DF7C5 /* ContentView.swift */; };
 		F62AEE292CA218AD002DF7C5 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F62AEE282CA218AD002DF7C5 /* Assets.xcassets */; };
@@ -31,6 +30,9 @@
 		F6F76ED92DC0204300ECA120 /* TestView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6F76ED82DC0204300ECA120 /* TestView.swift */; };
 		F6F76F0A2E298ABB00ECA120 /* SettingsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6F76F092E298ABB00ECA120 /* SettingsViewModel.swift */; };
 		F6F76F0C2E2ACC2600ECA120 /* ImagePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6F76F0B2E2ACC2600ECA120 /* ImagePicker.swift */; };
+		F6F76F102E30931B00ECA120 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = F6F76F0F2E30931A00ECA120 /* GoogleService-Info.plist */; };
+		F6F76F122E309A1D00ECA120 /* MessagesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6F76F112E309A1D00ECA120 /* MessagesView.swift */; };
+		F6F76F142E309B6B00ECA120 /* ChatView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6F76F132E309B6B00ECA120 /* ChatView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -38,7 +40,6 @@
 		4F881DCA6A275FFA43635831 /* Pods-FoodDate.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FoodDate.release.xcconfig"; path = "Target Support Files/Pods-FoodDate/Pods-FoodDate.release.xcconfig"; sourceTree = "<group>"; };
 		7AD88FDD86B18A88F291CFFE /* Pods-FoodDate.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FoodDate.debug.xcconfig"; path = "Target Support Files/Pods-FoodDate/Pods-FoodDate.debug.xcconfig"; sourceTree = "<group>"; };
 		F629C2E52CACCA0D00CB214A /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		F629C2E92CACD95F00CB214A /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		F62AEE212CA218AB002DF7C5 /* FoodDate.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FoodDate.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F62AEE242CA218AB002DF7C5 /* FoodDateApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FoodDateApp.swift; sourceTree = "<group>"; };
 		F62AEE262CA218AB002DF7C5 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -62,6 +63,9 @@
 		F6F76ED82DC0204300ECA120 /* TestView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestView.swift; sourceTree = "<group>"; };
 		F6F76F092E298ABB00ECA120 /* SettingsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewModel.swift; sourceTree = "<group>"; };
 		F6F76F0B2E2ACC2600ECA120 /* ImagePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagePicker.swift; sourceTree = "<group>"; };
+		F6F76F0F2E30931A00ECA120 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../../../Downloads/GoogleService-Info.plist"; sourceTree = "<group>"; };
+		F6F76F112E309A1D00ECA120 /* MessagesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessagesView.swift; sourceTree = "<group>"; };
+		F6F76F132E309B6B00ECA120 /* ChatView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -96,7 +100,7 @@
 		F62AEE182CA218AB002DF7C5 = {
 			isa = PBXGroup;
 			children = (
-				F629C2E92CACD95F00CB214A /* GoogleService-Info.plist */,
+				F6F76F0F2E30931A00ECA120 /* GoogleService-Info.plist */,
 				F62AEE232CA218AB002DF7C5 /* FoodDate */,
 				F62AEE222CA218AB002DF7C5 /* Products */,
 				D1F05BE06371934A54A182D8 /* Pods */,
@@ -149,6 +153,8 @@
 				F6F76ED42DBFF73700ECA120 /* SwipeCardView.swift */,
 				F6F76ED82DC0204300ECA120 /* TestView.swift */,
 				F6F76F0B2E2ACC2600ECA120 /* ImagePicker.swift */,
+				F6F76F112E309A1D00ECA120 /* MessagesView.swift */,
+				F6F76F132E309B6B00ECA120 /* ChatView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -235,7 +241,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				F62AEE672CAB2F68002DF7C5 /* Launch Screen.storyboard in Resources */,
-				F629C2EA2CACD95F00CB214A /* GoogleService-Info.plist in Resources */,
+				F6F76F102E30931B00ECA120 /* GoogleService-Info.plist in Resources */,
 				F62AEE2C2CA218AD002DF7C5 /* Preview Assets.xcassets in Resources */,
 				F62AEE292CA218AD002DF7C5 /* Assets.xcassets in Resources */,
 			);
@@ -290,9 +296,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F6F76F122E309A1D00ECA120 /* MessagesView.swift in Sources */,
 				F6F76ED72DBFFC6000ECA120 /* DummyData.swift in Sources */,
 				F62AEE5B2CA4AA87002DF7C5 /* ProfileCard.swift in Sources */,
 				F62AEE612CA4AAC7002DF7C5 /* SwipeViewModel.swift in Sources */,
+				F6F76F142E309B6B00ECA120 /* ChatView.swift in Sources */,
 				F6F76ED32DBF3CCE00ECA120 /* UserProfile.swift in Sources */,
 				F62AEE692CAB4A78002DF7C5 /* RegistrationView.swift in Sources */,
 				F62AEE632CA4BF0F002DF7C5 /* EditProfileView.swift in Sources */,

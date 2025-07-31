@@ -7,6 +7,7 @@ import SwiftUI
 struct ContentView: View {
     @State private var isLoggedIn = false
     @State private var selectedTab = "Profile"
+    @EnvironmentObject var settings: SettingsViewModel
 
     var body: some View {
         if isLoggedIn {
@@ -15,6 +16,8 @@ struct ContentView: View {
                     .tabItem { Label("Profile", systemImage: "person") }
                 SwipeView()
                     .tabItem { Label("Swipe", systemImage: "person.2") }
+                MessagesView()
+                    .tabItem { Label("Messages", systemImage: "message")}
                 SettingsView()
                     .tabItem { Label("Settings", systemImage: "gear") }
             }

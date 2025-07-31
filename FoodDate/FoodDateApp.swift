@@ -9,11 +9,13 @@ import Firebase
 @main
 struct FoodDateApp: App {
     @UIApplicationDelegateAdaptor var appDelegate: AppDelegate
-
+    @StateObject var settings = SettingsViewModel()
+    
     var body: some Scene {
     
         WindowGroup {
             ContentView()
+                .environmentObject(settings)
         }
     }
 }

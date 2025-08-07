@@ -7,6 +7,8 @@
 import Combine
 import Foundation
 import UIKit
+import Firebase
+import CoreLocation
 
 class ProfileViewModel: ObservableObject {
     @Published var name: String = ""
@@ -51,6 +53,27 @@ class ProfileViewModel: ObservableObject {
             try? data.write(to: path)
         }
     }
+    //Update user location function
+    func updateUserLocation(_ coordinate: CLLocationCoordinate2D) {
+        guard let userID = Auth.auth().currentUser?.uid else {
+            print("No logged-in user.")
+            return
+        }
+
+        let geoPoint = GeoPoint(latitude: coordinate.latitude, longitude: coordinate.longitude)
+
+        let db = Firestore.firestore()
+        db.collection("users").document(userID).updateData([
+            "location": geoPoint
+        ]) { error in
+            if let error = error {
+                print("❌ Error updating location: \(error.localizedDescription)")
+            } else {
+                print("✅ Successfully updated location.")
+            }
+        }
+    }
+
 
     // MARK: - Helpers
 
@@ -65,4 +88,5 @@ class ProfileViewModel: ObservableObject {
         // Add validation if needed
         return true
     }
+    
 }

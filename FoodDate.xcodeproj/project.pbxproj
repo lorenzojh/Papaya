@@ -33,6 +33,7 @@
 		F6F76F102E30931B00ECA120 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = F6F76F0F2E30931A00ECA120 /* GoogleService-Info.plist */; };
 		F6F76F122E309A1D00ECA120 /* MessagesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6F76F112E309A1D00ECA120 /* MessagesView.swift */; };
 		F6F76F142E309B6B00ECA120 /* ChatView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6F76F132E309B6B00ECA120 /* ChatView.swift */; };
+		F6F76F162E43D26700ECA120 /* LocationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6F76F152E43D26700ECA120 /* LocationManager.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -66,6 +67,7 @@
 		F6F76F0F2E30931A00ECA120 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../../../Downloads/GoogleService-Info.plist"; sourceTree = "<group>"; };
 		F6F76F112E309A1D00ECA120 /* MessagesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessagesView.swift; sourceTree = "<group>"; };
 		F6F76F132E309B6B00ECA120 /* ChatView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatView.swift; sourceTree = "<group>"; };
+		F6F76F152E43D26700ECA120 /* LocationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationManager.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -164,6 +166,7 @@
 			children = (
 				F6F76ED22DBF3CCE00ECA120 /* UserProfile.swift */,
 				F6F76ED62DBFFC6000ECA120 /* DummyData.swift */,
+				F6F76F152E43D26700ECA120 /* LocationManager.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -310,6 +313,7 @@
 				F6F76ED92DC0204300ECA120 /* TestView.swift in Sources */,
 				F62AEE272CA218AB002DF7C5 /* ContentView.swift in Sources */,
 				F62AEE502CA21EC3002DF7C5 /* Loginview.swift in Sources */,
+				F6F76F162E43D26700ECA120 /* LocationManager.swift in Sources */,
 				F629C2E62CACCA0D00CB214A /* AppDelegate.swift in Sources */,
 				F63A234D2CACB1D800D01EC6 /* RegistrationViewModel.swift in Sources */,
 				F62AEE592CA4AA73002DF7C5 /* SettingsView.swift in Sources */,
@@ -455,6 +459,7 @@
 				INFOPLIST_KEY_CFBundleDisplayName = Papaya;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.social-networking";
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "We use your location to help you find nearby matches.\nWe use your location to help you find nearby matches.\nWe use your location to find matches ";
 				INFOPLIST_KEY_UILaunchStoryboardName = "Launch Screen.storyboard";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -489,6 +494,7 @@
 				INFOPLIST_KEY_CFBundleDisplayName = Papaya;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.social-networking";
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "We use your location to help you find nearby matches.\nWe use your location to help you find nearby matches.\nWe use your location to find matches ";
 				INFOPLIST_KEY_UILaunchStoryboardName = "Launch Screen.storyboard";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",

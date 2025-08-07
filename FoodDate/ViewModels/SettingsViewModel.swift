@@ -19,5 +19,6 @@ class SettingsViewModel: ObservableObject{
     @Published var genderPreference: GenderPreference = .all
     @Published var minAge: Int = 18
     @Published var maxAge: Int = 50
-    
+    @Published var maxDistance: Int = UserDefaults.standard.integer(forKey: "maxDistance") == 0 ? 25 : UserDefaults.standard.integer(forKey: "maxDistance")
+
 }

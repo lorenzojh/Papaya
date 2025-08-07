@@ -58,7 +58,17 @@ struct SettingsView: View {
                     }
                     .padding(.vertical)
                 }
-
+                Section(header: Text("Search Distance")){
+                    VStack(alignment: .leading){
+                        Text("Show users within: \(settings.maxDistance) miles" )
+                        Slider(value: Binding(
+                            get: { Double(settings.maxDistance )} ,
+                                          set: {settings.maxDistance = Int($0)}),
+                               in: 1...100, step: 1)
+                            }
+                                .padding(.vertical)
+                        }
+        
                 Section {
                     Button(action: saveSettings) {
                         Text("Save Settings")
@@ -85,6 +95,8 @@ struct SettingsView: View {
         UserDefaults.standard.set(settings.genderPreference.rawValue, forKey: "datingPreference")
         UserDefaults.standard.set(settings.minAge, forKey: "minAge")
         UserDefaults.standard.set(settings.maxAge, forKey: "maxAge")
+        UserDefaults.standard.set(settings.maxDistance, forKey: "maxDistance")
+
     }
 }
 

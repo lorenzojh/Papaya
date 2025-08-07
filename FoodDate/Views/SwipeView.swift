@@ -8,7 +8,7 @@
 //
 
 import SwiftUI
-
+import CoreLocation
 struct SwipeView: View {
     @State private var profiles = dummyProfiles
     @State private var topProfileIndex = 0
@@ -18,9 +18,12 @@ struct SwipeView: View {
     @State private var matchedProfile: UserProfile? = nil
     @State private var swipeStatus: String? = nil
     @EnvironmentObject var settings: SettingsViewModel
+    @StateObject private var locationManager = LocationManager()
+
 
     var body: some View {
         ZStack {
+            
             if topProfileIndex < profiles.count {
                 // Stack of profiles
                 ForEach(Array(profiles.enumerated().reversed()), id: \.element.id) { index, profile in
@@ -54,7 +57,7 @@ struct SwipeView: View {
                         .frame(width: 120, height: 120)
                         .foregroundColor(.blue)
                         .padding()
-
+                    
                     Text("You're all caught up!")
                         .font(.largeTitle)
                         .bold()
@@ -70,7 +73,7 @@ struct SwipeView: View {
                 }
                 .padding()
                 .transition(.opacity)
-
+                
             }
             
             // Swipe feedback
@@ -132,14 +135,22 @@ struct SwipeView: View {
             }
         }
         .padding()
-        .onAppear(){
+        .onAppear {
+            _ = locationManager // force init
+            print("📍 Current location: \(locationManager.userLocation?.latitude ?? 0), \(locationManager.userLocation?.longitude ?? 0)")
+
+            // Load initial filters — may run before location is available
             loadFilteredProfiles()
         }
         .onChange(of: settings.genderPreference) { _ in
             loadFilteredProfiles()
         }
+        .onChange(of: locationManager.userLocation?.latitude) { _ in
+            if locationManager.userLocation != nil {
+                loadFilteredProfiles()
+            }
+        }
     }
-
     private func handleSwipe(value: CGSize) {
         if value.width > 100 {
             swipeRight()
@@ -186,7 +197,13 @@ struct SwipeView: View {
     private func loadFilteredProfiles() {
         let allProfiles = dummyProfiles
 
-        profiles = allProfiles.filter { profile in
+        guard let currentLocation = locationManager.userLocation else {
+            print("User location not available yet")
+            profiles = []
+            return
+        }
+
+        let filteredByAgeAndGender = allProfiles.filter { profile in
             let ageInt = Int(profile.age) ?? 0
             let matchesAge = ageInt >= settings.minAge && ageInt <= settings.maxAge
 
@@ -202,6 +219,24 @@ struct SwipeView: View {
 
             return matchesGender && matchesAge
         }
+
+        profiles = filterByDistance(currentUserLocation: currentLocation, users: filteredByAgeAndGender)
     }
+
+        func filterByDistance(currentUserLocation: CLLocationCoordinate2D, users: [UserProfile]) -> [UserProfile] {
+            let maxDist = UserDefaults.standard.double(forKey: "maxDistance") // or from Firestore
+
+            return users.filter { user in
+                guard let loc = user.location else { return false }
+
+                let userLoc = CLLocation(latitude: loc.latitude, longitude: loc.longitude)
+                let currentLoc = CLLocation(latitude: currentUserLocation.latitude, longitude: currentUserLocation.longitude)
+
+                let distanceInMiles = userLoc.distance(from: currentLoc) / 1609.34
+                return distanceInMiles <= maxDist
+            }
+        }
+
     }
+    
 

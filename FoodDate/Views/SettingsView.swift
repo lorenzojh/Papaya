@@ -5,14 +5,14 @@
 //  Created by Lorenzo Hobbs on 9/25/24.
 //
 import SwiftUI
-
+import Firebase
 struct SettingsView: View {
     @State private var gender: String = "Male"
     @State private var showSuccess = false
     @EnvironmentObject var settings: SettingsViewModel
-
+    @EnvironmentObject var authViewModel: AuthViewModel
     let genders = ["Male", "Female", "Other"]
-
+    
     var body: some View {
         NavigationView {
             Form {
@@ -25,7 +25,7 @@ struct SettingsView: View {
                     }
                     .pickerStyle(SegmentedPickerStyle())
                 }
-
+                
                 // Preference (filters profiles)
                 Section(header: Text("Dating Preference")) {
                     Picker("Looking for", selection: $settings.genderPreference) {
@@ -35,7 +35,7 @@ struct SettingsView: View {
                     }
                     .pickerStyle(SegmentedPickerStyle())
                 }
-
+                
                 // Age range filters
                 Section(header: Text("Preferred Age Range")) {
                     VStack {
@@ -44,7 +44,7 @@ struct SettingsView: View {
                             Spacer()
                             Text("Max Age: \(settings.maxAge)")
                         }
-
+                        
                         RangeSliderView(
                             minAge: Binding(
                                 get: { Double(settings.minAge) },
@@ -63,12 +63,12 @@ struct SettingsView: View {
                         Text("Show users within: \(settings.maxDistance) miles" )
                         Slider(value: Binding(
                             get: { Double(settings.maxDistance )} ,
-                                          set: {settings.maxDistance = Int($0)}),
+                            set: {settings.maxDistance = Int($0)}),
                                in: 1...100, step: 1)
-                            }
-                                .padding(.vertical)
-                        }
-        
+                    }
+                    .padding(.vertical)
+                }
+                
                 Section {
                     Button(action: saveSettings) {
                         Text("Save Settings")
@@ -76,6 +76,16 @@ struct SettingsView: View {
                             .padding()
                             .background(Color.blue)
                             .foregroundColor(.white)
+                            .cornerRadius(12)
+                    }
+                    Button(action:{
+                        logout()
+                    }){
+                        Text("Log out")
+                            .foregroundColor(.red)
+                            .padding()
+                            .frame(maxWidth: .infinity)
+                            .background(Color(.systemGray5))
                             .cornerRadius(12)
                     }
                 }
@@ -86,17 +96,20 @@ struct SettingsView: View {
             }
         }
     }
-
+    
     private func saveSettings() {
         print("Settings saved!")
         showSuccess = true
-
+        
         UserDefaults.standard.set(gender, forKey: "gender")
         UserDefaults.standard.set(settings.genderPreference.rawValue, forKey: "datingPreference")
         UserDefaults.standard.set(settings.minAge, forKey: "minAge")
         UserDefaults.standard.set(settings.maxAge, forKey: "maxAge")
         UserDefaults.standard.set(settings.maxDistance, forKey: "maxDistance")
-
+        
+    }
+    func logout() {
+        authViewModel.logout()
     }
 }
 

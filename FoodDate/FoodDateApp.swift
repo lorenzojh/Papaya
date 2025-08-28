@@ -10,12 +10,20 @@ import Firebase
 struct FoodDateApp: App {
     @UIApplicationDelegateAdaptor var appDelegate: AppDelegate
     @StateObject var settings = SettingsViewModel()
-    
+    @StateObject var authViewModel = AuthViewModel()
+
     var body: some Scene {
-    
         WindowGroup {
-            ContentView()
-                .environmentObject(settings)
+            if authViewModel.isLoggedIn {
+                ContentView()
+                    .environmentObject(settings)
+                    .environmentObject(authViewModel)
+            } else {
+                LoginView(isLoggedIn: $authViewModel.isLoggedIn) // <- Binding passed here
+                    .environmentObject(authViewModel)
+                    .environmentObject(settings)
+            }
         }
     }
 }
+

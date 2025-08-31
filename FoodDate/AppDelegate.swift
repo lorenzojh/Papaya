@@ -15,7 +15,7 @@ import GoogleUtilities
 class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         FirebaseApp.configure()
-        FirebaseConfiguration.shared.setLoggerLevel(.debug)
+        FirebaseConfiguration.shared.setLoggerLevel(.min)
 
         return true
     }

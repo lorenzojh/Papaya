@@ -5,12 +5,13 @@
 import SwiftUI
 
 struct ContentView: View {
-    @State private var isLoggedIn = false
+   
     @State private var selectedTab = "Profile"
     @EnvironmentObject var settings: SettingsViewModel
+    @EnvironmentObject var auth: AuthViewModel
 
     var body: some View {
-        if isLoggedIn {
+        if auth.isLoggedIn {
             TabView(selection: $selectedTab) {
                 ProfileView()
                     .tabItem { Label("Profile", systemImage: "person") }
@@ -23,7 +24,7 @@ struct ContentView: View {
             }
             .navigationBarTitle("Papaya")
         } else {
-            LoginView(isLoggedIn: $isLoggedIn)
+            LoginView()
         }
     }
 }

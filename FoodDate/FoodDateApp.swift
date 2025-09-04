@@ -14,15 +14,15 @@ struct FoodDateApp: App {
 
     var body: some Scene {
         WindowGroup {
-            if authViewModel.isLoggedIn {
-                ContentView()
-                    .environmentObject(settings)
-                    .environmentObject(authViewModel)
-            } else {
-                LoginView(isLoggedIn: $authViewModel.isLoggedIn) // <- Binding passed here
-                    .environmentObject(authViewModel)
-                    .environmentObject(settings)
+            Group {
+                if authViewModel.isLoggedIn {
+                    ContentView()
+                } else {
+                    LoginView()  // ← no Binding
+                }
             }
+            .environmentObject(settings)
+            .environmentObject(authViewModel)
         }
     }
 }

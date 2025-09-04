@@ -8,64 +8,49 @@ import SwiftUI
 import FirebaseAuth
 
 struct LoginView: View {
-    @Binding var isLoggedIn: Bool
+    @EnvironmentObject var auth: AuthViewModel
+
     @State private var email = ""
     @State private var password = ""
     @State private var showPassword = false
-    @State private var errorMessage: String?
     @State private var showRegistration = false
     @State private var showResetAlert = false
     @State private var resetEmail = ""
     @State private var resetMessage = ""
     @FocusState private var focusedField: Field?
-
     enum Field { case email, password }
 
     var body: some View {
         ZStack {
-            // Background gradient (two-tone for depth)
             LinearGradient(
                 colors: [Color(hex: "f194c7"), Color(hex: "ffbfd8")],
-                startPoint: .topLeading,
-                endPoint: .bottomTrailing
+                startPoint: .topLeading, endPoint: .bottomTrailing
             )
             .ignoresSafeArea()
 
             ScrollView {
-                VStack(spacing: 18) {
+                VStack(spacing: 40) {
+                    // Logo
                     Image("logo")
-                      .renderingMode(.original)
-                      .resizable()
-                      .scaledToFit()
-                      .frame(height: 100)
-                      .padding(16)
-                      .background(
-                        RoundedRectangle(cornerRadius: 18).fill(.ultraThinMaterial)
-                      )
-                      .overlay( // pink tint on top of the material
-                        RoundedRectangle(cornerRadius: 18)
-                          .fill(Color(hex: "f194c7").opacity(0.25))
-                      )
-                      .overlay(
-                        RoundedRectangle(cornerRadius: 18).stroke(.white.opacity(0.15), lineWidth: 1)
-                      )
-                      .shadow(color: .black.opacity(0.2), radius: 18, y: 10)
-
-
-
-                    // Headline
-                    Text("Welcome")
-                        .font(.system(.largeTitle, design: .rounded, weight: .bold))
-                        .foregroundStyle(.white)
-                        .shadow(radius: 8, y: 3)
-
-                    // Card
+                    .renderingMode(Image.TemplateRenderingMode.original)
+                    .resizable()
+                    .scaledToFit()
+                    .frame(height: 160)     //
+                    .padding(32)            // more breathing room around logo
+                    .background(
+                        RoundedRectangle(cornerRadius: 32, style: .continuous) //  bigger radius = softer corners
+                            .fill(.ultraThinMaterial)
+                            .overlay(
+                                RoundedRectangle(cornerRadius: 32, style: .continuous)
+                                    .fill(Color(hex: "f194c7").opacity(0.25))
+                            )
+                    )
+                    .shadow(color: Color.black.opacity(0.15), radius: 14, y: 8)
+                
+                   
                     VStack(spacing: 16) {
-                        // Email
                         HStack(spacing: 12) {
-                            Image(systemName: "envelope.fill")
-                                .imageScale(.medium)
-                                .foregroundStyle(.secondary)
+                            Image(systemName: "envelope.fill").imageScale(.medium).foregroundStyle(.secondary)
                             TextField("Email", text: $email)
                                 .textContentType(.emailAddress)
                                 .keyboardType(.emailAddress)
@@ -75,12 +60,8 @@ struct LoginView: View {
                         }
                         .modifier(InputFieldStyle())
 
-                        // Password with eye toggle
                         HStack(spacing: 12) {
-                            Image(systemName: "lock.fill")
-                                .imageScale(.medium)
-                                .foregroundStyle(.secondary)
-
+                            Image(systemName: "lock.fill").imageScale(.medium).foregroundStyle(.secondary)
                             Group {
                                 if showPassword {
                                     TextField("Password", text: $password)
@@ -90,9 +71,7 @@ struct LoginView: View {
                             }
                             .focused($focusedField, equals: .password)
 
-                            Button {
-                                withAnimation { showPassword.toggle() }
-                            } label: {
+                            Button { withAnimation { showPassword.toggle() } } label: {
                                 Image(systemName: showPassword ? "eye.slash.fill" : "eye.fill")
                                     .imageScale(.medium)
                                     .foregroundStyle(.secondary)
@@ -101,16 +80,14 @@ struct LoginView: View {
                         }
                         .modifier(InputFieldStyle())
 
-                        // Error message
-                        if let errorMessage {
-                            Text(errorMessage)
+                        if let err = auth.authError, !err.isEmpty {
+                            Text(err)
                                 .font(.footnote)
                                 .foregroundStyle(.red)
                                 .frame(maxWidth: .infinity, alignment: .leading)
                                 .transition(.opacity.combined(with: .move(edge: .top)))
                         }
 
-                        // Forgot password
                         HStack {
                             Spacer()
                             Button("Forgot Password?") {
@@ -120,92 +97,69 @@ struct LoginView: View {
                             .buttonStyle(LinkCapsuleStyle())
                         }
 
-                        // Login
                         Button {
-                            validateCredentials()
+                            focusedField = nil // dismiss keyboard so first tap isn't “eaten”
+                            Task { await auth.signIn(email: email, password: password) }
                         } label: {
                             HStack {
-                                Image(systemName: "arrow.right.circle.fill")
-                                Text("Log In")
+                                if auth.isLoading { ProgressView().tint(.white) }
+                                Text(auth.isLoading ? "Signing in…" : "Log In")
                                     .fontWeight(.semibold)
                             }
                         }
+                        .disabled(auth.isLoading || email.isEmpty || password.isEmpty)
                         .buttonStyle(PrimaryButtonStyle())
 
-                        // Divider text
                         HStack {
                             Rectangle().fill(.secondary.opacity(0.3)).frame(height: 1)
-                            Text("or")
-                                .font(.caption)
-                                .foregroundStyle(.secondary)
+                            Text("or").font(.caption).foregroundStyle(.secondary)
                             Rectangle().fill(.secondary.opacity(0.3)).frame(height: 1)
                         }
 
-                        // Register
                         Button {
                             showRegistration.toggle()
                         } label: {
-                            Text("Create an account")
-                                .fontWeight(.semibold)
+                            Text("Create an account").fontWeight(.semibold)
                         }
                         .buttonStyle(SecondaryButtonStyle())
                     }
                     .padding(20)
                     .background(.ultraThinMaterial, in: RoundedRectangle(cornerRadius: 24, style: .continuous))
-                    .overlay(
-                        RoundedRectangle(cornerRadius: 24)
-                            .strokeBorder(.white.opacity(0.15), lineWidth: 1)
-                    )
+                    .overlay(RoundedRectangle(cornerRadius: 24).strokeBorder(.white.opacity(0.15), lineWidth: 1))
                     .shadow(radius: 18, y: 10)
                     .padding(.horizontal)
                     .padding(.bottom, 24)
                 }
-                .font(.system(.body, design: .rounded)) // base font for the card
+                .font(.system(.body, design: .rounded))
             }
         }
-        .sheet(isPresented: $showRegistration) {
-            RegistrationView()
-        }
+        .sheet(isPresented: $showRegistration) { RegistrationView() }
         .alert("Reset Password", isPresented: $showResetAlert, actions: {
             TextField("Enter your email", text: $resetEmail)
                 .textInputAutocapitalization(.never)
                 .textContentType(.emailAddress)
                 .keyboardType(.emailAddress)
-            Button("Send Reset Link", action: sendPasswordReset)
+            Button("Send Reset Link") {
+                Task {
+                    await auth.sendPasswordReset(to: resetEmail)
+                    resetMessage = auth.authError == nil ? "Password reset email sent." : (auth.authError ?? "")
+                }
+            }
             Button("Cancel", role: .cancel) { }
-        }, message: {
-            Text(resetMessage)
-        })
+        }, message: { Text(resetMessage) })
         .onSubmit {
             if focusedField == .email { focusedField = .password }
-            else { validateCredentials() }
+            else {
+                focusedField = nil
+                Task { await auth.signIn(email: email, password: password) }
+            }
         }
         .submitLabel(.go)
     }
-
-    // Replace with your real Firebase login later
-    func validateCredentials() {
-        let validUser = "Lorenzojh"
-        let validPass = "Juicewrld999"
-        if email == validUser && password == validPass {
-            isLoggedIn = true
-            errorMessage = nil
-        } else {
-            withAnimation { errorMessage = "Invalid username or password" }
-        }
-    }
-
-    func sendPasswordReset() {
-        Auth.auth().sendPasswordReset(withEmail: resetEmail) { error in
-            if let error = error {
-                resetMessage = "Error: \(error.localizedDescription)"
-            } else {
-                resetMessage = "Password reset email sent."
-            }
-        }
-    }
 }
 
+
+    
 // MARK: - Styles & Helpers
 
 struct InputFieldStyle: ViewModifier {

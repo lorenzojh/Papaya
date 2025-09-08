@@ -9,5 +9,6 @@ target 'FoodDate' do
 	pod 'FirebaseAuth'
 pod 'Firebase/Database'
 pod 'Firebase/Firestore' 
+pod 'FirebaseFirestoreSwift'
 
 end
